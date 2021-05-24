@@ -5,6 +5,6 @@ steps:
   displayName: Set PS Modules Cache Directory
 - task: Cache@2
   inputs:
-    key: 'PSModulePath | "$(Agent.OS)"'
+    key: 'PSModulePath | "$(Agent.OS)" | $(Build.SourcesDirectory)/eng/common/scripts/Import-AzModules.ps1'
     path: $(CachedPSModulePath)
   displayName: Cache PS Modules

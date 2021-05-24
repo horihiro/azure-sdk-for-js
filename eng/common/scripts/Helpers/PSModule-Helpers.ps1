@@ -36,6 +36,11 @@ function Update-PSModulePath()
     if ($homeDirectories.Count -gt 1) {
       Write-Verbose "Found more then one module path starting with $home so selecting the first one $global:CurrentUserModulePath"
     }
+
+    # In some cases the directory might not exist so we need to create it otherwise caching an empty directory will fail
+    if (!(Test-Path $global:CurrentUserModulePath)) {
+      New-Item $global:CurrentUserModulePath -ItemType Directory > $null
+    }
   }
   else {
     Write-Error "Did not find a module path starting with $home to set up a user module path in $env:PSModulePath"
